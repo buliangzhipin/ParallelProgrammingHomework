@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project default="javadoc">
     <target name="javadoc">
-        <javadoc access="private" additionalparam=" -encoding UTF-8&#13;&#10;-charset UTF-8&#13;&#10;-html5" author="true" classpath="." destdir="javadoc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="para.graphic.target,para,para.graphic.shape,para.calc,para.graphic.parser" source="10" sourcepath="src" splitindex="true" use="true" version="true">
-            <link href="file:/D:/GitHub/ParallelProgrammingHomework/Homework2/Homework2/"/>
+        <javadoc access="private" additionalparam=" -encoding UTF-8&#13;&#10;-charset UTF-8&#13;&#10;-html5" author="true" classpath="." destdir="javadoc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" source="10" sourcefiles="src/para/graphic/shape/Triangle.java" sourcepath="src" splitindex="true" use="true" version="true">
+            <link href="file:/D:/GitHub/ParallelProgrammingHomework/Homework2/Homework2/javadoc/"/>
         </javadoc>
     </target>
 </project>

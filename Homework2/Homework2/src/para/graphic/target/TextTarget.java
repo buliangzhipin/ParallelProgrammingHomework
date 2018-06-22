@@ -174,8 +174,8 @@ public class TextTarget implements Target{
    */
   @Override
 	public void drawTriangle(int id, int x1, int y1, int x2, int y2, int x3, int y3, Attribute attr) {
-		// TODO Auto-generated method stub
-		
+		pstream.print("shape "+id+" Triangle "+x1+" "+y1+" "+x2+" "+y2+" "+x3+" "+y3);
+		print(attr);
 	}
 
   private class DirectAccessByteArrayOutputStream extends java.io.ByteArrayOutputStream{

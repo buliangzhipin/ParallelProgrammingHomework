@@ -14,7 +14,7 @@ public class Main00{
     ShapeManager sm = new ShapeManager();
     Target target;
     target = new JavaFXTarget("DisplayShapes");
-    //target = new TextTarget(System.out);
+//    target = new TextTarget(System.out);
     target.init();
     while(true){
       for(int i=0;i<256;i=i+50){

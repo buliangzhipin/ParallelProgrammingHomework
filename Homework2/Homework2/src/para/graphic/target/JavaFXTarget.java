@@ -43,7 +43,7 @@ public class JavaFXTarget implements Target{
       Platform.startup(new Runnable(){public void run(){};});
 //      Platform.startup​();
     }catch(IllegalStateException e){
-    }
+    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
   }
   
   public JavaFXTarget(){
@@ -167,7 +167,7 @@ public class JavaFXTarget implements Target{
    */
   @Override
   public void drawTriangle(int id,int x1, int y1, int x2, int y2, int x3, int y3,  Attribute attr) {
-	// TODO Auto-generated method stub
+	canvas.drawTriangle(id, x1, y1, x2, y2, x3, y3, attr);
   }
 
 }
