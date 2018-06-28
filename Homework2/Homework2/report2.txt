@@ -19,13 +19,11 @@ sceneに登録すれば、焦点はこのsceneにある場合ならばいつで�
 
 
 回答4 : package para.graphic.parserの動作の説明
-まずMainParserがScannerの中のshape文字を受け取って、この文字を自分のHashMapで探して、shapeなので、ShapeManagerParserを
-新しく作って、このParserを管理するShapeManagerにParserを入れる。そのあと、ShapeManegerがまずidを解析して、そのあと形を
-解析する。形状が分かったら、その形状のParserにScannerを伝える。このあと、shapemanagerにParserが解析した形状の情報とid
-（idが同じなものがあれば代わる）を伝える。この一連の動作が終わったら、MainParserが二個目の情報を解析して、Target情報なので、
-TaregetParserにScannerの情報を伝えて、そのあと、TargetParserは動作の情報を解析して、drawならば、まず情報を対応のTargetに伝えて、
-TargetがShapeManagerのdrawを利用する。ShapeManegerが自分の中にあるShapeの各自のdrawを逐次に利用する。ShapeもまたTargetのdrawを利用して
-自分の形を描く。
+まずMainParserがScannerの中のshape文字を受け取って、この文字を自分のHashMapで探して、最初はshapeなので、ShapeManagerParserを新しく作って、このParserを管理するShapeManagerにParserを入れる。
+そのあと、ShapeManegerがまずidを解析して、そのあと形を解析する。
+形状が分かったら、その形状のParserにScannerを伝える。
+このあと、shapemanagerにParserが解析した形状の情報とid（idが同じなものがあれば代わる）を伝える。
+この一連の動作が終わったら、MainParserが二個目の情報を解析して、Target情報なので、TaregetParserにScannerの情報を伝えて、そのあと、TargetParserは動作の情報を解析して、drawならば、まず情報を対応のTargetに伝えて、TargetがShapeManagerのdrawを利用する。ShapeManegerが自分の中にあるShapeの各自のdrawを逐次に利用する。ShapeもまたTargetのdrawを利用して自分の形を描く。
 
 
 
@@ -60,7 +58,8 @@ privateは内部クラスしか修飾できないので、MainParser以外のは
 
 
 回答6 : para.graphic.parser.ImageParserの仕組みの説明
-ImageParserはまずbyte形式のInputStreamとbuffer用のbyte arrayを作る。構文解析するときはまずxとy座標の情報を受け取る。そのあとScannerの中の画像情報（事前にBase64をencodeするもの）を正規表現によって[a-zA-Z0-9\+/=&]などの情報を全部bufferにcopyする。copyするときは一つだけの"&"があるときはcopyをやめる。そのあとinputの情報をresetする。そのあと、Base64のDecoderによってdecodeする情報をBufferedImageにコピーする。そのあと、Attributeの情報があればAttributeParserにScannerの情報を伝えて構文解析する。終わったら、imageの情報を返す。
+ImageParserはまずbyte形式のInputStreamとbuffer用のbyte arrayを作る。構文解析するときはまずxとy座標の情報を受け取る。そのあとScannerの中の画像情報（事前にBase64をencodeするもの）を正規表現によって[a-zA-Z0-9\+/=&]などの情報を全部bufferにcopyする。copyするときは一つだけの"&"があるときはcopyをやめる。そのあとinputの情報をresetする。そのあと、Base64のDecoderによってdecodeする情報をBufferedImageにコピーする。
+そのあと、Attributeの情報があればAttributeParserにScannerの情報を伝えて構文解析する。終わったら、imageの情報を返す。
 
 
 

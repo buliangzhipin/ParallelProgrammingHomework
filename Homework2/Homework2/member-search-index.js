@@ -1,1 +1,0 @@
-memberSearchIndex = [{"l":"buff","h":"","u":""},{"l":"buttonname","h":"","u":""},{"l":"Calculator()","h":"","u":""},{"l":"ex","h":"","u":""},{"l":"input","h":"","u":""},{"l":"main(String[])","h":"","u":"main(java.lang.String[])"},{"l":"output","h":"","u":""},{"l":"start(Stage)","h":"","u":"start(javafx.stage.Stage)"}]

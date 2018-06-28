@@ -51,7 +51,7 @@ public class Main02{
 	    	      "reset\n"+
 	    	      "target clear\n"+
 	    	      "shape 10 Triangle 40 40 80 80 20 40 Attribute Color 100 40 60 Fill true\n"+
-	    	      "shape 11 Circle 300 40 30 Attribute Color 100 70 30 Fill false\n"+
+	    	      "shape 11 Triangle 140 40 280 80 120 140 Attribute Color 100 70 30 Fill false\n"+
 	    	      "shape 12 Circle 80 260 20 Attribute Color 100 120 10 Fill false\n"+
 	    	      "shape 13 Circle 300 260 40 Attribute Color 100 140 60 Fill true\n"+
 	    	      "shape 14 Circle 190 150 60 Attribute Color 200 200 100 Fill true\n"+

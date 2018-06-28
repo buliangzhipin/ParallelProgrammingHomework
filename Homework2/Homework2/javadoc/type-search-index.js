@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"Triangle","h":"","u":""}]

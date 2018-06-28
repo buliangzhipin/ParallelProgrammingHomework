@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"para.graphic.shape","h":"","u":""}]

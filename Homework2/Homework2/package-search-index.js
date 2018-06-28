@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"para.calc","h":"","u":""}]
