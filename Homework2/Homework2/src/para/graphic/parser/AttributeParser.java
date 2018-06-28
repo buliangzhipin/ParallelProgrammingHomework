@@ -3,7 +3,7 @@ import java.util.*;
 
 import para.graphic.shape.Attribute;
 
-public class AttributeParser{
+class AttributeParser{
   /*
     private final HashMap<String,ShapeParser> map;
     map = new HashMap<String,ShapeParser>();

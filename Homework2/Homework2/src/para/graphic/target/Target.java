@@ -1,4 +1,8 @@
 package para.graphic.target;
+/**
+ * 学籍番号：15B15829
+ * 李墨然
+ */
 import para.graphic.shape.Attribute;
 import para.graphic.shape.ShapeManager;
 import java.awt.image.*;
@@ -52,10 +56,12 @@ public interface Target{
   public void drawImage(int id, int x, int y, BufferedImage img, Attribute attr);
   /** 画像図形を出力する．
    *  @param id 画像図形の識別子
-   *  @param x1  画像図形の左上隅のx座標
-   *  @param y1  画像図形の左上隅のy座標
+	 * @param x
+	 *            三角形3点のx座標
+	 * @param y
+	 *            三角形3点のy座標
    *  @param img  画像情報
    *  @param attr 画像図形の属性
    */
-  public void drawTriangle(int id, int x1, int y1,int x2,int y2,int x3, int y3, Attribute attr);
+  public void drawTriangle(int id, int[] x, int[] y, Attribute attr);
 }

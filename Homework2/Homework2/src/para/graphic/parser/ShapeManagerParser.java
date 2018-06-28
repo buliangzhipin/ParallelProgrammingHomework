@@ -1,9 +1,13 @@
 package para.graphic.parser;
+/**
+ * 学籍番号：15B15829
+ * 李墨然
+ */
 import java.util.*;
 
 import para.graphic.shape.ShapeManager;
 
-public class ShapeManagerParser implements MetaParser{
+class ShapeManagerParser implements MetaParser{
   private final ShapeManager shapemanager;
   private final HashMap<String,ShapeParser> map;
 

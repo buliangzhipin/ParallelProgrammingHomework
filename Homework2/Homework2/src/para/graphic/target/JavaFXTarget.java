@@ -1,4 +1,8 @@
 package para.graphic.target;
+/**
+ * 学籍番号：15B15829
+ * 李墨然
+ */
 import para.graphic.shape.Attribute;
 import para.graphic.shape.ShapeManager;
 
@@ -166,8 +170,8 @@ public class JavaFXTarget implements Target{
    *  三角形を描画する
    */
   @Override
-  public void drawTriangle(int id,int x1, int y1, int x2, int y2, int x3, int y3,  Attribute attr) {
-	canvas.drawTriangle(id, x1, y1, x2, y2, x3, y3, attr);
+  public void drawTriangle(int id,int[] x, int[] y,  Attribute attr) {
+	canvas.drawTriangle(id, x, y, attr);
   }
 
 }

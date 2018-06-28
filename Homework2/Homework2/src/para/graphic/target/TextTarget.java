@@ -1,4 +1,8 @@
 package para.graphic.target;
+/**
+ * 学籍番号：15B15829
+ * 李墨然
+ */
 import para.graphic.shape.Attribute;
 import para.graphic.shape.ShapeManager;
 
@@ -173,8 +177,8 @@ public class TextTarget implements Target{
    *  三角形の情報を文字出力する
    */
   @Override
-	public void drawTriangle(int id, int x1, int y1, int x2, int y2, int x3, int y3, Attribute attr) {
-		pstream.print("shape "+id+" Triangle "+x1+" "+y1+" "+x2+" "+y2+" "+x3+" "+y3);
+	public void drawTriangle(int id, int[] x, int[] y, Attribute attr) {
+		pstream.print("shape "+id+" Triangle "+x[0]+" "+y[0]+" "+x[1]+" "+y[1]+" "+x[2]+" "+y[2]);
 		print(attr);
 	}
 

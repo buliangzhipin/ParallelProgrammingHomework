@@ -1,6 +1,6 @@
 package para.graphic.parser;
 import java.util.*;
 
-public interface MetaParser{
+interface MetaParser{
   void parse(Scanner s);
 }

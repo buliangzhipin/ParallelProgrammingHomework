@@ -1,5 +1,10 @@
 package para;
 
+/**
+ * 学籍番号：15B15829
+ * 李墨然
+ */
+
 import java.util.*;
 
 import para.graphic.parser.MainParser;
@@ -45,7 +50,7 @@ public class Main02{
 	    String data =
 	    	      "reset\n"+
 	    	      "target clear\n"+
-	    	      "shape 10 Triangle 40 40 80 80 20 40 Attribute Color 100 40 60 Fill false\n"+
+	    	      "shape 10 Triangle 40 40 80 80 20 40 Attribute Color 100 40 60 Fill true\n"+
 	    	      "shape 11 Circle 300 40 30 Attribute Color 100 70 30 Fill false\n"+
 	    	      "shape 12 Circle 80 260 20 Attribute Color 100 120 10 Fill false\n"+
 	    	      "shape 13 Circle 300 260 40 Attribute Color 100 140 60 Fill true\n"+
