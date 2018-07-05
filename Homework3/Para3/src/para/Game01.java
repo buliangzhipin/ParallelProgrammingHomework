@@ -191,7 +191,7 @@ public class Game01 extends GameFrame {
 					ism.put(new Circle(v, (int) p.getXY()[0], (int) p.getXY()[1], 20, attr));
 					Shape s = InsideChecker.check(osm, new Vec2(p.getXY()[0], p.getXY()[1]));
 					if (s != null) {
-						point += 5;
+						point += 100;
 						ism.remove(v + 1);
 						ism.remove(v + 2);
 						ism.remove(v + 3);
@@ -224,6 +224,9 @@ public class Game01 extends GameFrame {
 			inputside.draw(osm);
 			inputside.draw(ism);
 			inputside.flush();
+			for(int i = 1;i<4;i++) {
+				ism.remove(v+i);
+			}
 			Platform.runLater(() -> {
 			gc.setFont(new Font(40));
 			gc.strokeText("Game Clear", 100, 100);
