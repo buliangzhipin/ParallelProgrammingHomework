@@ -106,7 +106,12 @@ public class Game01 extends GameFrame {
 //			int appear = rand.nextInt(40);
 //			if (30 < appear) {
 				int head = rand.nextInt(MCOUNT - 1) + 1;
-				int duration = 600;
+				int duration=0;
+				if(v ==1|v==2) {
+					duration = 600;
+				}else if(v==3|v==4) {
+					duration = 500;
+				}
 
 				if (slot[(last + head) % MCOUNT] <= 0) {
 					slot[(last + head) % MCOUNT] = duration;
