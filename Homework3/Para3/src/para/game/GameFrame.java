@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
 import javafx.scene.*;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -20,6 +21,8 @@ import para.graphic.target.*;
  * 
  */
 public class GameFrame extends Application{
+	
+
   /** ゲームの表示領域 */
   protected final JavaFXCanvasTarget canvas;
   /** ウィンドウのタイトル文字列 */
@@ -34,6 +37,7 @@ public class GameFrame extends Application{
   protected final SynchronizedPoint xy;
   final int WIDTH; 
   final int HEIGHT;
+  
   
   /**
    * ゲーム領域が 400 × 600 のゲームフレームを用意する
@@ -122,6 +126,7 @@ public class GameFrame extends Application{
     root.requestFocus();
     Scene scene = new Scene(root);
     Button button = new Button("Start");
+    
     HBox low = new HBox();
     Spinner<Integer> spinner = new Spinner<Integer>(1,4,1);
     stage.setOnCloseRequest(ev->{
@@ -153,10 +158,13 @@ public class GameFrame extends Application{
     canvas.setFocusTraversable(true);
     button.setPrefHeight(30);
     button.setPrefWidth(100);
+
     spinner.setPrefHeight(30);
     button.setOnAction(ev->{
+    	System.out.println(Thread.currentThread().getName());
         gamestart(spinner.getValue());
       });
+
     low.getChildren().add(spinner);
     low.getChildren().add(button);
     root.getChildren().add(canvas);

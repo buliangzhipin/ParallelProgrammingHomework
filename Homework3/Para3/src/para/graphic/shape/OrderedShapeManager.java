@@ -7,18 +7,21 @@ import para.graphic.target.Target;
  */
 public class OrderedShapeManager extends ShapeManager{
 	public OrderedShapeManager() {
-//		super(new TreeSet<Shape>());
-		super();
+		super(new TreeSet<Shape>(new Comparator<Shape>() {
+			public int compare(Shape s1, Shape s2) {
+				return (s1.getID() - s2.getID());
+			};
+		}));
 	}
 
 	  
-	  @Override
-	  /** 集合内の図形を出力する．
-	   *  @param target 出力装置
-	   */
-	  public synchronized void draw(Target target){
-		  data.stream().sorted((s1,s2)->s1.getID()-s2.getID()).forEach(s->s.draw(target));
-	  }
+//	  @Override
+//	  /** 集合内の図形を出力する．
+//	   *  @param target 出力装置
+//	   */
+//	  public synchronized void draw(Target target){
+//		  data.stream().sorted((s1,s2)->s1.getID()-s2.getID()).forEach(s->s.draw(target));
+//	  }
 
 
 
