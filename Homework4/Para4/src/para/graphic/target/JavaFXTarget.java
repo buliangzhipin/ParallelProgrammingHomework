@@ -4,7 +4,6 @@ import para.graphic.shape.ShapeManager;
 import para.graphic.shape.Camera;
 
 import java.util.concurrent.atomic.AtomicInteger;
-import javafx.application.Platform;
 import javafx.stage.Stage;
 import java.lang.IllegalStateException;
 import javafx.scene.Scene;
@@ -16,6 +15,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 //import javafx.scene.paint.Color; // not Color in javafx module
 import java.awt.Color;
@@ -41,7 +41,7 @@ public class JavaFXTarget implements Target{
 
   static{
     try{
-      Platform.startup(()->{});
+    	Platform.startup(new Runnable(){public void run(){}});
     }catch(IllegalStateException e){
     }
   }

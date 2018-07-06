@@ -72,6 +72,7 @@ public class Main07{
           = new MainParser(new TranslateTarget(sms[i],
                             new TranslationRule(10000*i, new Vec2(320*i,0))),
                            dummy);
+//        System.out.println(new Scanner(r).nextLine());
         parser.parse(new Scanner(r));
       }catch(IOException ex){
         System.err.print(ex);
