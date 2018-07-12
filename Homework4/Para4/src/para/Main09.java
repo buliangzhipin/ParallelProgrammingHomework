@@ -139,6 +139,8 @@ public class Main09 {
 			e.printStackTrace();
 		}finally {
 			flag.setflag(i);
+			sms[i].clear();
+			target.clear();
 		}
 	}
 
