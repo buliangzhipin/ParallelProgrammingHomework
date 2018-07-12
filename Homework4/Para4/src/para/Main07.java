@@ -108,6 +108,8 @@ public class Main07 {
 			e.printStackTrace();
 		}
 		flag.setflag(i);
+		sms[i].clear();
+		target.clear();
 	}
 
 	public static void main(String[] args) {

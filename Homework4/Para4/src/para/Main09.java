@@ -21,6 +21,7 @@ public class Main09 {
 	final ServerSocket ss;
 
 	final Executor exe;
+	final Executor exe2;
 
 	/**
 	 * 受け付け用ソケットを開くこと、受信データの格納場所を用意すること を行う
@@ -42,6 +43,7 @@ public class Main09 {
 		}
 
 		this.exe = Executors.newFixedThreadPool(3);
+		this.exe2 = Executors.newFixedThreadPool(3);
 	}
 
 	/**
@@ -83,33 +85,38 @@ public class Main09 {
 						comminucat(s, flag, i);
 					}
 				};
-				comminucatClient(s, flag, i);
+
+				Runnable runnerclient = new Runnable() {
+					@Override
+					public void run() {
+						comminucatClient(s, flag, i);
+
+					}
+				};
 
 				exe.execute(runner);
+				exe2.execute(runnerclient);
 			} catch (IOException ex) {
 				System.err.print(ex);
 			}
 
 		}
 	}
-	
-	
+
 	/*
-	 * クライアントに送るためのメソッド
-	 * author:15B15829李墨然
+	 * クライアントに送るためのメソッド author:15B15829李墨然
 	 */
 	public void comminucatClient(Socket s, Flag flag, int i) {
 		new Thread(() -> {
 			Target outTarget;
+			ShapeManager dummy = new ShapeManager();
+			Attribute a = new Attribute(255, 255, 255);
 			try {
 				outTarget = new TextTarget(s.getOutputStream());
 				while (flag.getflag(i)) {
-
-					for (ShapeManager sm : sms) {
-						outTarget.draw(sm);
-					}
+					dummy.put(new Image(0, 0, 0, target.copyBufferedImage(), a));
+					outTarget.draw(dummy);
 					Thread.sleep(100);
-
 				}
 			} catch (IOException e1) {
 				e1.printStackTrace();
@@ -119,10 +126,9 @@ public class Main09 {
 
 		}).start();
 	}
-	
+
 	/*
-	 * サーバ側が受けるためのメソッド
-	 * author:15B15829李墨然
+	 * サーバ側が受けるためのメソッド author:15B15829李墨然
 	 */
 	public void comminucat(Socket s, Flag flag, int i) {
 		try (s) {
@@ -133,11 +139,10 @@ public class Main09 {
 			MainParser parser = new MainParser(
 					new TranslateTarget(sms[i], new TranslationRule(10000 * i, new Vec2(320 * i, 0))), dummy);
 			parser.parse(new Scanner(r));
-
 			flag.setflag(i);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			flag.setflag(i);
 			sms[i].clear();
 			target.clear();
@@ -149,11 +154,9 @@ public class Main09 {
 		m.init();
 		m.start();
 	}
-	
-	
+
 	/*
-	 * 今空いている画面を管理するためのフラグクラス
-	 * author:15B15829李墨然
+	 * 今空いている画面を管理するためのフラグクラス author:15B15829李墨然
 	 */
 	class Flag {
 		private boolean flag[] = { false, false, false };
