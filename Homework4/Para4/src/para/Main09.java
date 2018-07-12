@@ -13,7 +13,7 @@ import para.graphic.parser.MainParser;
 /**
  * クライアントからの通信を受けて描画するサーバプログラム。 監視ポートは30000番
  */
-public class Main07 {
+public class Main09 {
 	final public int PORTNO = 30000;
 	final int MAXCONNECTION = 3;
 	final Target target;
@@ -25,7 +25,7 @@ public class Main07 {
 	/**
 	 * 受け付け用ソケットを開くこと、受信データの格納場所を用意すること を行う
 	 */
-	public Main07() {
+	public Main09() {
 		target = new JavaFXTarget("Server", 320 * MAXCONNECTION, 240);
 		// target = new TextTarget(System.out);
 		ServerSocket tmp = null;
@@ -72,17 +72,19 @@ public class Main07 {
 	 */
 	public void start() {
 		Flag flag = new Flag();
+
 		while (true) {
-			int i = flag.notBusy();
 			try {
 				Socket s = ss.accept();
+				int i = flag.notBusy();
 				Runnable runner = new Runnable() {
 					@Override
 					public void run() {
 						comminucat(s, flag, i);
-
 					}
 				};
+				comminucatClient(s, flag, i);
+
 				exe.execute(runner);
 			} catch (IOException ex) {
 				System.err.print(ex);
@@ -91,33 +93,65 @@ public class Main07 {
 		}
 	}
 	
+	
+	/*
+	 * クライアントに送るためのメソッド
+	 * author:15B15829李墨然
+	 */
+	public void comminucatClient(Socket s, Flag flag, int i) {
+		new Thread(() -> {
+			Target outTarget;
+			try {
+				outTarget = new TextTarget(s.getOutputStream());
+				while (flag.getflag(i)) {
+
+					for (ShapeManager sm : sms) {
+						outTarget.draw(sm);
+					}
+					Thread.sleep(100);
+
+				}
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+		}).start();
+	}
+	
 	/*
 	 * サーバ側が受けるためのメソッド
 	 * author:15B15829李墨然
 	 */
 	public void comminucat(Socket s, Flag flag, int i) {
-
 		try (s) {
+
 			BufferedReader r;
 			r = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			ShapeManager dummy = new ShapeManager();
 			MainParser parser = new MainParser(
 					new TranslateTarget(sms[i], new TranslationRule(10000 * i, new Vec2(320 * i, 0))), dummy);
 			parser.parse(new Scanner(r));
+
+			flag.setflag(i);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}finally {
+			flag.setflag(i);
 		}
-		flag.setflag(i);
 	}
 
 	public static void main(String[] args) {
-		Main07 m = new Main07();
+		Main09 m = new Main09();
 		m.init();
 		m.start();
 	}
-
+	
+	
 	/*
-	 * 今空いている画面を管理するためのフラグクラス author:15B15829李墨然
+	 * 今空いている画面を管理するためのフラグクラス
+	 * author:15B15829李墨然
 	 */
 	class Flag {
 		private boolean flag[] = { false, false, false };

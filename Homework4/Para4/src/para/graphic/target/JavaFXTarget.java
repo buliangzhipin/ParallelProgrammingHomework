@@ -105,9 +105,9 @@ public class JavaFXTarget implements Target{
           stage = new Stage();
           stage.setTitle(title);
           stage.setOnCloseRequest(ev->{//ev.consume();
-              if(counter.decrementAndGet()==0){
+//              if(counter.decrementAndGet()==0){
                 System.exit(0);
-              }
+//              }
             });
           stage.setScene(scene);
           scene.setOnKeyPressed(ev->{
