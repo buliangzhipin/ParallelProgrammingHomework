@@ -1,6 +1,9 @@
 package para;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import para.graphic.target.*;
 import para.graphic.shape.*;
@@ -22,6 +25,7 @@ public class Main11{
   final String selector;
 
   public Main11(String selector){
+	  
     this.selector = selector; 
     sm = new OrderedShapeManager();
     wall = new OrderedShapeManager();
@@ -40,6 +44,7 @@ public class Main11{
   }
 
   public void start(){
+	  
     IntStream.range(0,445*225).forEach(n->{
         int x = n%445;
         int y = n/445;
@@ -80,8 +85,10 @@ public class Main11{
             jf.clear();
             jf.drawCircle(1000,(int)pos.data[0],(int)pos.data[1],5,
                           new Attribute(0,0,0,true,0,0,0));
-            jf.draw(sm);
-            jf.draw(wall);
+            sm.getParallelStream().unordered().forEach(shape->shape.draw(jf));
+            wall.getParallelStream().unordered().forEach(shape->shape.draw(jf));
+//            jf.draw(sm);
+//            jf.draw(wall);
             jf.flush();
             time =1.0f;
             while(0<time){
@@ -95,6 +102,8 @@ public class Main11{
               Shape w=ccp.check(wall, tmpwpos, tmpwvel, wtime);
               if(s != null) {
                 sm.remove(s);
+//                ArrayList<Shape> arr =(ArrayList<Shape>) sm.getStream().parallel().unordered().filter(shape->shape.getID()!=s.getID()).collect(Collectors.toList());
+//                sm = new ShapeManager(arr);
                 pos = tmpspos;
                 vel = tmpsvel;
                 time = stime[0];
@@ -110,10 +119,11 @@ public class Main11{
           }
         }
       });
+    thread.setName("main thread");
     thread.start();
   }
 
   public static void main(String[] args){
-    new Main11("SINGLE").start();
+    new Main11("PARALLEL").start();
   }
 }
