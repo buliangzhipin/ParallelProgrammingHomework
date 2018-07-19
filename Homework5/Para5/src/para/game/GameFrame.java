@@ -152,7 +152,10 @@ public class GameFrame extends Application{
       });
     canvas.setFocusTraversable(true);
     button.setPrefHeight(30);
-    button.setPrefWidth(100);
+    //changed
+    button.setPrefWidth(50);
+    
+    
     spinner.setPrefHeight(30);
     button.setOnAction(ev->{
         gamestart(spinner.getValue());

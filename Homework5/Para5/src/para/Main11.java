@@ -5,6 +5,8 @@ import java.util.Scanner;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import javafx.application.Platform;
 import para.graphic.target.*;
 import para.graphic.shape.*;
 import para.graphic.parser.*;
@@ -74,6 +76,23 @@ public class Main11{
           float[] wtime = new float[]{1.0f};
           long startTimeMS = System.currentTimeMillis();
           long count=-1;
+          Thread thread2 = new Thread(()-> {
+        	  while(true) {
+        		  jf.clear();
+                  jf.drawCircle(1000,(int)pos.data[0],(int)pos.data[1],5,
+                                new Attribute(0,0,0,true,0,0,0));
+                jf.draw(sm);
+                jf.draw(wall);
+                  jf.flush();
+//                  try {
+//					Thread.sleep(1000);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+        	  }
+          });
+          thread2.start();
           while(true){
             count++;
             if(count==100){
@@ -82,14 +101,15 @@ public class Main11{
               System.exit(0);
             }
             j = (j+2)%120;
-            jf.clear();
-            jf.drawCircle(1000,(int)pos.data[0],(int)pos.data[1],5,
-                          new Attribute(0,0,0,true,0,0,0));
-            sm.getParallelStream().unordered().forEach(shape->shape.draw(jf));
-            wall.getParallelStream().unordered().forEach(shape->shape.draw(jf));
+//            jf.clear();
+//            jf.drawCircle(1000,(int)pos.data[0],(int)pos.data[1],5,
+//                          new Attribute(0,0,0,true,0,0,0));
+//            sm.getParallelStream().unordered().forEach(shape->shape.draw(jf));
+//            wall.getParallelStream().unordered().forEach(shape->shape.draw(jf));
+            
 //            jf.draw(sm);
 //            jf.draw(wall);
-            jf.flush();
+//            jf.flush();
             time =1.0f;
             while(0<time){
               stime[0] = time;
@@ -103,7 +123,7 @@ public class Main11{
               if(s != null) {
                 sm.remove(s);
 //                ArrayList<Shape> arr =(ArrayList<Shape>) sm.getStream().parallel().unordered().filter(shape->shape.getID()!=s.getID()).collect(Collectors.toList());
-//                sm = new ShapeManager(arr);
+//                sm = new ShapeManager((ArrayList<Shape>) sm.getStream().parallel().unordered().filter(shape->shape.getID()!=s.getID()).collect(Collectors.toList()));
                 pos = tmpspos;
                 vel = tmpsvel;
                 time = stime[0];

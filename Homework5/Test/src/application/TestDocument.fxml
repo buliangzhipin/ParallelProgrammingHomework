@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?language javascript?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="354.0" prefWidth="428.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MyController">
+   <children>
+   <fx:script>
+   function set(){
+   myText.text="2333";
+   }
+   </fx:script>
+      <Button fx:id="myButton" layoutX="128.0" layoutY="43.0" onAction="set()" mnemonicParsing="false" prefHeight="30.0" prefWidth="144.0" text="Button" />
+      <TextField fx:id="myText" layoutX="99.0" layoutY="191.0" />
+   </children>
+</AnchorPane>
