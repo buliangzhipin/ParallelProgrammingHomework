@@ -1,3 +1,7 @@
+/**
+ * 1515829
+ * 李　墨然
+ */
 package para;
 
 import para.graphic.shape.*;
@@ -107,7 +111,7 @@ public class TargetColorFilter2 extends TargetColorFilter{
     /** 色を加算する
      * @param color 色を表す4バイトのint型
      */
-    protected void add(int color){
+    protected synchronized void add(int color){
       c++;
       r +=((color & 0xff0000)>>16);
       g +=((color & 0x00ff00)>>8);

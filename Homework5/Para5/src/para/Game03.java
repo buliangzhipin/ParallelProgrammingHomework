@@ -1,3 +1,7 @@
+/**
+ * 1515829
+ * 李　墨然
+ */
 package para;
 
 import java.awt.Image;
@@ -224,6 +228,7 @@ public class Game03 extends GameFrame {
 			float[] btime = new float[] { 1.0f };
 			float[] stime = new float[] { 1.0f };
 			float[] wtime = new float[] { 1.0f };
+			
 			
 			//" "を押したら、玉が動くEventを追加する
 			addStartKey();
