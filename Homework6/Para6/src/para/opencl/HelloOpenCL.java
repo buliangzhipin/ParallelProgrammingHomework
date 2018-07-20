@@ -33,6 +33,7 @@ public class HelloOpenCL{
     CLBuffer<FloatBuffer> BufferC = cl.createFloatBuffer(tmpfb.limit(),
 							 WRITE_ONLY); 
     int datasize = tmpfb.limit();
+    System.out.println(datasize);
     CLCommandQueue queue = cl.createQueue();
 
     CLProgram program = cl.createProgramFromResource(this,"add.cl");

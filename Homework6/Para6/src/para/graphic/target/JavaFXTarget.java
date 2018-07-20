@@ -42,7 +42,7 @@ public class JavaFXTarget implements Target{
   static{
     try{
       //  Platform.startup​(()->{}); //<- do not use this (trouble on Mac OS)
-      Platform.startup​(new Runnable(){public void run(){}});
+      Platform.startup(new Runnable(){public void run(){}});
     }catch(IllegalStateException e){
     }
   }
