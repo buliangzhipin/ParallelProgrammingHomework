@@ -35,6 +35,8 @@ public class Sum3{
     tmpfb = loadData("data/datac.txt");
     CLBuffer<FloatBuffer> BufferC = cl.createBuffer(tmpfb,READ_ONLY);
     tmpfb.rewind();
+    CLBuffer<FloatBuffer> BufferD = cl.createFloatBuffer(tmpfb.limit(),
+							 WRITE_ONLY); 
     int datasize = tmpfb.limit();
     CLCommandQueue queue = cl.createQueue();
 
