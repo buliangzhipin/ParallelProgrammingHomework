@@ -2,7 +2,7 @@
 
 // OpenCL Kernel Function
 __kernel void Mosaic(const int width, const int height,
-                     __constant uchar* input,
+                     __global uchar* input,
                      __local int* ldata,
                      __global uchar* output,
                         float parameter){
@@ -14,7 +14,7 @@ __kernel void Mosaic(const int width, const int height,
   /**
    * copy one block area colors to the local memory for this work group
    */
-  
+
   /*
   ldata[((ly*2  )*8+(lx*2  ))*3  ] = input[((y*2  )*width+(x*2  ))*3  ];
   ldata[((ly*2  )*8+(lx*2  ))*3+1] = input[((y*2  )*width+(x*2  ))*3+1];
@@ -29,20 +29,37 @@ __kernel void Mosaic(const int width, const int height,
   ldata[((ly*2+1)*8+(lx+1)*2)*3+1] = input[((y+1)*2*width+(x+1)*2)*3+1];
   ldata[((ly*2+1)*8+(lx+1)*2)*3+2] = input[((y+1)*2*width+(x+1)*2)*3+2];
   */
+  // for(int c=0; c<3; c++){
+  //   ldata[((ly*2  )*8+(lx*2  ))*3+c] = input[((y*2  )*width+(x*2  ))*3+c];
+  //   ldata[((ly*2  )*8+(lx*2+1))*3+c] = input[((y*2  )*width+(x*2+1))*3+c];
+  //   ldata[((ly*2+1)*8+(lx*2  ))*3+c] = input[((y*2+1)*width+(x*2  ))*3+c];
+  //   ldata[((ly*2+1)*8+(lx*2+1))*3+c] = input[((y*2+1)*width+(x*2+1))*3+c];
+  // }
   for(int c=0; c<3; c++){
-    ldata[((ly*2  )*8+(lx*2  ))*3+c] = input[((y*2  )*width+(x*2  ))*3+c];
-    ldata[((ly*2  )*8+(lx*2+1))*3+c] = input[((y*2  )*width+(x*2+1))*3+c];
-    ldata[((ly*2+1)*8+(lx*2  ))*3+c] = input[((y*2+1)*width+(x*2  ))*3+c];
-    ldata[((ly*2+1)*8+(lx*2+1))*3+c] = input[((y*2+1)*width+(x*2+1))*3+c];
+    ldata[((ly*2  )*8+(lx*2  ))*3+c] = (input[((y*2  )*width+(x*2  ))*3+c] +
+    input[((y*2  )*width+(x*2+1))*3+c] +
+    input[((y*2+1)*width+(x*2  ))*3+c] +
+    input[((y*2+1)*width+(x*2+1))*3+c])/4;
   }
   barrier(CLK_LOCAL_MEM_FENCE);
 
   /**
-   * calculate average color in one block area 
-   */ 
+   * calculate average color in one block area
+   */
+   for(int i = 1; i < 4; i*=2)
+   {
+     if(lx % ( 2 * i ) == 0 && ly % ( 2 * i ) ==0){
+       ldata[((ly*2  )*8+(lx*2  ))*3] = (ldata[((ly*2  )*8+(lx*2  ))*3] + ldata[((ly*2  )*8+((lx + i)*2  ))*3] +
+       ldata[(((ly + i)*2  )*8+(lx*2  ))*3] + ldata[(((ly + i)*2  )*8+((lx + i)*2  ))*3])/4;
+       ldata[((ly*2  )*8+(lx*2  ))*3+1] = (ldata[((ly*2  )*8+(lx*2  ))*3+1] + ldata[((ly*2  )*8+((lx + i)*2  ))*3+1] +
+       ldata[(((ly + i)*2  )*8+(lx*2  ))*3+1] + ldata[(((ly + i)*2  )*8+((lx + i)*2  ))*3+1])/4;
+       ldata[((ly*2  )*8+(lx*2  ))*3+2] = (ldata[((ly*2  )*8+(lx*2  ))*3+2] + ldata[((ly*2  )*8+((lx + i)*2  ))*3+2] +
+       ldata[(((ly + i)*2  )*8+(lx*2  ))*3+2] + ldata[(((ly + i)*2  )*8+((lx + i)*2  ))*3+2])/4;
+     }
+     barrier(CLK_LOCAL_MEM_FENCE);
+   }
 
 
-  
 
 
 
@@ -55,8 +72,6 @@ __kernel void Mosaic(const int width, const int height,
 
 
 
-
-  
   /**
    * fill one color in a block area
    */
@@ -88,7 +103,7 @@ __kernel void Mosaic(const int width, const int height,
   output[((y*2  )*width+(x*2+1))*4+3] = 0xff;
   output[((y*2+1)*width+(x*2  ))*4+3] = 0xff;
   output[((y*2+1)*width+(x*2+1))*4+3] = 0xff;
-  
+
   /* just through process which means that there is no data change
   output[((y*2  )*width+(x*2  ))*4  ] = input[((y*2  )*width+(x*2  ))*3  ];
   output[((y*2  )*width+(x*2  ))*4+1] = input[((y*2  )*width+(x*2  ))*3+1];

@@ -1,3 +1,7 @@
+/**
+ * 15B15829
+ * 李墨然
+ */
 package para.graphic.target;
 import para.graphic.shape.Attribute;
 import para.graphic.shape.ShapeManager;
@@ -251,7 +255,7 @@ public class TargetRecorder implements Target{
   
   class Shot extends TimerTask{
     public void run(){
-      Image image = target.getImage();
+      Image image = target.copyImage();
       Frame frame = new Frame(width, height, Frame.DEPTH_BYTE, 3);
       PixelReader reader = image.getPixelReader();
       ByteBuffer b = (ByteBuffer)frame.image[0];

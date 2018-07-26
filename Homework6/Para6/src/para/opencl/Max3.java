@@ -1,3 +1,7 @@
+/**
+ * 15B15829
+ * 李墨然
+ */
 package para.opencl;
 
 import com.jogamp.opencl.CLBuffer;
@@ -25,34 +29,56 @@ public class Max3{
 	    cl.initContext();
 
 
+	    int min;
+
+
 	    FloatBuffer tmpfb;
 	    tmpfb = loadData("data/dataa.txt");
 	    CLBuffer<FloatBuffer> BufferA = cl.createBuffer(tmpfb,READ_ONLY);
+	    
+	    
+	    min = tmpfb.limit();
+	    
+	    
 	    tmpfb.rewind();
 	    tmpfb = loadData("data/datab.txt");
 	    CLBuffer<FloatBuffer> BufferB = cl.createBuffer(tmpfb,READ_ONLY);
+	    
+	    min = min<tmpfb.limit()?min:tmpfb.limit();
+	    
+	    
 	    tmpfb.rewind();
-	    CLBuffer<FloatBuffer> BufferC = cl.createFloatBuffer(tmpfb.limit(),
+	    tmpfb = loadData("data/datac.txt");
+	    CLBuffer<FloatBuffer> BufferC = cl.createBuffer(tmpfb,READ_ONLY);
+	    
+	    min = min<tmpfb.limit()?min:tmpfb.limit();
+	    
+	    
+	    tmpfb.rewind();
+	    
+	    
+	    CLBuffer<FloatBuffer> BufferD = cl.createFloatBuffer(min,
 								 WRITE_ONLY); 
+	    
+	    
 	    int datasize = tmpfb.limit();
 	    CLCommandQueue queue = cl.createQueue();
+	    CLProgram program = cl.createProgramFromResource(this,"max3.cl");
+	    CLKernel kernel = program.createCLKernel("Max3");
+	    kernel.putArgs(BufferA, BufferB, BufferC,BufferD);
 
-	    CLProgram program = cl.createProgramFromResource(this,"add.cl");
-	    CLKernel kernel = program.createCLKernel("Add");
-	    kernel.putArgs(BufferA, BufferB, BufferC);
-	    kernel.setArg(3,datasize);
-
-	    BufferC.getBuffer().rewind();
+	    BufferD.getBuffer().rewind();
 	    //デバイスへ転送、並列演算、演算結果の取得
 	    queue.putWriteBuffer(BufferA, false)//BufferAのデータをカーネル側へ転送指令
 	      .putWriteBuffer(BufferB, false)//BufferBのデータをカーネル側へ転送指令
+	      .putWriteBuffer(BufferC, false)//BufferCのデータをカーネル側へ転送指令
 	      .putBarrier() //今までの指令がすべて完了するまで待つ
-	      .put1DRangeKernel(kernel, 0, datasize, 1)//演算指令
+	      .put1DRangeKernel(kernel, 0, min, 1)//演算指令
 	      .putBarrier() //今までの指令がすべて完了するまで待つ
-	      .putReadBuffer(BufferC, true);//BufferCのデータをホスト側へ転送指令
+	      .putReadBuffer(BufferD, true);//BufferCのデータをホスト側へ転送指令
 	                                    //転送完了まで待つ
 	    //演算結果の出力
-	    FloatBuffer fb = BufferC.getBuffer();
+	    FloatBuffer fb = BufferD.getBuffer();
 	    fb.rewind();
 	    for(int i=0;i<fb.limit();i++){
 	      System.out.print(fb.get()+" ");
@@ -62,8 +88,6 @@ public class Max3{
 
 
 
-
-	    cl.release();
 	  }
 	  
 	  /** 引数で指定されたファイルから浮動小数の数値列を読み込み、その値を格納したバッファを返す。

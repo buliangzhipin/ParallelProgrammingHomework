@@ -29,7 +29,7 @@ public class Main14 extends Application{
     sm = new OrderedShapeManager();
     jfc = new JavaFXCanvasTarget(360,280);
 
-    //filter = new TargetDelayFilter(jfc, "donothing.cl", "DoNothing");
+//    filter = new TargetDelayFilter(jfc, "donothing.cl", "DoNothing");
     filter = new TargetDelayFilter(jfc, "delay.cl", "Delay");
     target = new TargetRecorder("recorddelay", filter);
     target.init();
@@ -37,10 +37,15 @@ public class Main14 extends Application{
     sm.add(new Camera(0,20,20));
     thread = new Thread(new Runnable(){
         public void run(){
+        	int i=0;
           while(true){
-            //System.out.println(Thread.currentThread().getName());
+        	  
+//        	  sm.put(new Rectangle(30, i, 0, 10,300, new Attribute(255,255,0,true)));
+            System.out.println(Thread.currentThread().getName());
+            target.clear();
             target.draw(sm);
             target.flush();
+            i = (i+10)%360;
             try{
               Thread.sleep(80);
             }catch(InterruptedException e){
