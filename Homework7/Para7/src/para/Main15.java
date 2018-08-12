@@ -23,6 +23,7 @@ public class Main15 extends Application{
   final ShapeManager sm;
   final String filename;
   final String kernelname;
+  
 
   public Main15(){
     this("imagefilter.cl", "Filter1");

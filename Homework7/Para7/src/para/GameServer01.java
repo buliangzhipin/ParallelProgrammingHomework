@@ -61,15 +61,19 @@ public class GameServer01{
       System.err.println(ex);
     }
     gsf.welcome();
-
+    
     int gs=0;
     while(true){
       gs = (gs+1)%350;
       GameInputThread git = gsf.queue.poll();
       if(git != null){
         int id = git.getUserID();
-        init(id);
         startReceiver(git);
+        if(id == MAXCONNECTION-1) {
+        	for(int i = 0 ; i<MAXCONNECTION;i++) {
+        		init(i);
+        	}
+        }
       }
       try{
         Thread.sleep(100);
@@ -83,6 +87,10 @@ public class GameServer01{
                                  (int)pos[i].data[1], 5, ballattr));
           putScore(i,score[i]);
           out.gamerstate(gs); //Gamerの状態をクライアントに伝える
+          
+          System.out.println(gs);
+          
+          
           distributeOutput(out);
         }
       }
